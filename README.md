@@ -5,7 +5,12 @@
 [![Build Status][travis-image]][travis-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
 
-Merge objects using descriptors.
+Merge source object "own" properties onto a destination object, including 
+non-enumerable "own" properties, and preserve each property's values and 
+descriptors. This means the destination object has a true copy of the source 
+object's properties, including their values and configuration. In particular this 
+also copies over properties that are defined using a getter or a getter-setter 
+pair.
 
 ```js
 var thing = {
@@ -25,15 +30,13 @@ animal.name === 'jon'
 
 ## API
 
-### merge(destination, source)
+### merge(destination, source, overwrite)
 
-Redefines `destination`'s descriptors with `source`'s. The return value is the
-`destination` object.
-
-### merge(destination, source, false)
-
-Defines `source`'s descriptors on `destination` if `destination` does not have
-a descriptor by the same name. The return value is the `destination` object.
+Merge "own" properties from `source` object onto `destination` object. 
+The `overwrite` argument is optional and has default value `true`. If 
+`overwrite == true` then existing properties on `destination` will be overwritten. 
+If `overwrite == false`, existing properties on `destination` will not be 
+overwritten. Returns the destination object.
 
 ## License
 
